@@ -2,6 +2,7 @@ import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 driverOptions = webdriver.ChromeOptions()
 driverOptions.add_argument("--start-maximized")
@@ -26,30 +27,22 @@ credentials = {
 get_started_button = driver.find_element(By.CLASS_NAME, "get-started-button")
 
 
-time.sleep(4)
+# Seleccionar texto y eliminar
+def clear_keys(element):
+    element.send_keys(Keys.CONTROL + "a")
+    element.send_keys(Keys.DELETE)
 
+
+time.sleep(4)
 
 get_started_button.click()
 
 time.sleep(4)
 
-
 email_input = driver.find_element(By.CLASS_NAME, "email-input")
 password_input = driver.find_element(By.CLASS_NAME, "password-input")
 login_button = driver.find_element(By.CLASS_NAME, "login-button")
-time.sleep(4)
 
-
-email_input.send_keys(credentials["invalid_email"]["email"])
-
-time.sleep(4)
-
-login_button.click()
-login_button.click()
-
-time.sleep(4)
-
-email_input.clear()
 time.sleep(4)
 
 email_input.send_keys(credentials["empty_credentials"]["email"])
@@ -62,10 +55,25 @@ login_button.click()
 
 time.sleep(4)
 
-email_input.clear()
-password_input.clear()
+clear_keys(email_input)
+clear_keys(password_input)
+
 
 time.sleep(4)
+
+email_input.send_keys(credentials["invalid_email"]["email"])
+
+time.sleep(4)
+
+login_button.click()
+login_button.click()
+
+time.sleep(4)
+
+email_input.clear()
+
+time.sleep(4)
+
 
 email_input.send_keys(credentials["invalid_password"]["email"])
 password_input.send_keys(credentials["invalid_password"]["password"])
@@ -77,8 +85,9 @@ login_button.click()
 
 time.sleep(4)
 
-email_input.clear()
-password_input.clear()
+clear_keys(email_input)
+clear_keys(password_input)
+
 
 time.sleep(4)
 email_input.send_keys(credentials["invalid_credentials"]["email"])
@@ -88,8 +97,8 @@ time.sleep(4)
 login_button.click()
 login_button.click()
 time.sleep(4)
-email_input.clear()
-password_input.clear()
+clear_keys(email_input)
+clear_keys(password_input)
 
 time.sleep(4)
 
@@ -99,9 +108,7 @@ password_input.send_keys(credentials["valid_credentials"]["password"])
 time.sleep(4)
 
 login_button.click()
-login_button.click()
 
-time.sleep(4)
-
+time.sleep(7)
 
 driver.quit()
